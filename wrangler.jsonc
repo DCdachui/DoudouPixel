@@ -1,6 +1,7 @@
 {
   "name": "perler-beads-vue",
   "compatibility_date": "2025-12-01",
+  "main": "worker.js",
   "assets": {
     "directory": "./dist"
   }
