@@ -42,13 +42,13 @@ async function handleApiRequest(request, env, pathname) {
       }
 
       // 从 KV 中验证卡密
-      // 假设 KV 命名空间绑定名为 KEYS，如果不同请修改
-      const kvNamespace = env.KEYS || env.ACCESS_CODES || env.KV
+      // 使用 wrangler.jsonc 中配置的绑定名称 KV_BINDING
+      const kvNamespace = env.KV_BINDING
       
       if (!kvNamespace) {
         console.error('KV namespace not found. Available env keys:', Object.keys(env))
         return new Response(
-          JSON.stringify({ success: false, message: '服务器配置错误' }),
+          JSON.stringify({ success: false, message: '服务器配置错误：KV 命名空间未找到' }),
           {
             status: 500,
             headers: { 'Content-Type': 'application/json' }
@@ -57,7 +57,9 @@ async function handleApiRequest(request, env, pathname) {
       }
 
       // 从 KV 中获取卡密对应的值
+      console.log('Verifying code:', code)
       const kvValue = await kvNamespace.get(code)
+      console.log('KV lookup result:', kvValue !== null ? 'found' : 'not found')
       
       if (kvValue !== null) {
         // 卡密有效
@@ -80,8 +82,13 @@ async function handleApiRequest(request, env, pathname) {
       }
     } catch (error) {
       console.error('Verify API error:', error)
+      console.error('Error stack:', error.stack)
       return new Response(
-        JSON.stringify({ success: false, message: '服务器错误' }),
+        JSON.stringify({ 
+          success: false, 
+          message: '服务器错误',
+          error: error.message 
+        }),
         {
           status: 500,
           headers: { 'Content-Type': 'application/json' }
