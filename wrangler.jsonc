@@ -4,6 +4,10 @@
   "main": "worker.js",
   "assets": {
     "directory": "./dist"
-  }
+  },
+  "kv_namespaces": [{
+                    "binding": "KV_BINDING",
+                    "id": "7c641e1f0dc649b49229e6f1304a32a8"
+                 }]
 }
 
