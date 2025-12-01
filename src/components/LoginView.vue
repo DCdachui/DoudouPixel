@@ -14,8 +14,8 @@
 
       <!-- 标题区域 -->
       <div class="title-container">
-        <h1 class="title">访问验证</h1>
-        <p class="subtitle">大锤拼豆版</p>
+        <h1 class="title">拼豆吧</h1>
+        <p class="subtitle">访问验证</p>
       </div>
 
       <!-- 输入区域 -->
