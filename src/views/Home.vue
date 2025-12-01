@@ -1666,6 +1666,8 @@ onUnmounted(() => {
 
 .main-content-mobile {
   flex-direction: column;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* 控制面板 */
@@ -1777,134 +1779,8 @@ onUnmounted(() => {
   background: var(--c-surface, #ffffff);
   transition: background-color 0.3s ease;
   scroll-behavior: smooth;
-  /* Firefox 滚动条样式 - 使用主题色 */
-  scrollbar-width: thin;
-  scrollbar-color: var(--c-primary, #4096ff) rgba(0, 0, 0, 0.05);
-  /* 优化滚动性能 */
   -webkit-overflow-scrolling: touch;
-  will-change: scroll-position;
   position: relative;
-}
-
-/* Webkit 滚动条样式 - 精美设计 */
-.panel-content::-webkit-scrollbar {
-  width: 8px;
-  opacity: 0;
-  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.panel-content:hover::-webkit-scrollbar,
-.panel-content:focus-within::-webkit-scrollbar {
-  opacity: 1;
-}
-
-.panel-content::-webkit-scrollbar-track {
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.02) 0%,
-    rgba(0, 0, 0, 0.04) 50%,
-    rgba(0, 0, 0, 0.02) 100%
-  );
-  border-radius: 12px;
-  margin: 12px 4px;
-  border: 1px solid rgba(0, 0, 0, 0.03);
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.02);
-}
-
-.panel-content::-webkit-scrollbar-thumb {
-  background: linear-gradient(
-    180deg,
-    var(--c-primary, #4096ff) 0%,
-    color-mix(in srgb, var(--c-primary, #4096ff) 90%, transparent) 50%,
-    var(--c-primary, #4096ff) 100%
-  );
-  border-radius: 12px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 2px solid var(--c-surface, #ffffff);
-  box-shadow: 
-    0 2px 8px rgba(64, 150, 255, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  min-height: 40px;
-  position: relative;
-}
-
-.panel-content::-webkit-scrollbar-thumb::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 2px;
-  height: 60%;
-  background: rgba(255, 255, 255, 0.4);
-  border-radius: 2px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.panel-content::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--c-primary, #4096ff) 100%, white 10%) 0%,
-    var(--c-primary, #4096ff) 50%,
-    color-mix(in srgb, var(--c-primary, #4096ff) 100%, white 10%) 100%
-  );
-  box-shadow: 
-    0 4px 12px rgba(64, 150, 255, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.4);
-  transform: scaleX(1.1);
-  border-color: rgba(255, 255, 255, 0.5);
-}
-
-.panel-content::-webkit-scrollbar-thumb:hover::before {
-  opacity: 1;
-}
-
-.panel-content::-webkit-scrollbar-thumb:active {
-  background: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--c-primary, #4096ff) 100%, black 5%) 0%,
-    color-mix(in srgb, var(--c-primary, #4096ff) 100%, black 10%) 50%,
-    color-mix(in srgb, var(--c-primary, #4096ff) 100%, black 5%) 100%
-  );
-  box-shadow: 
-    0 2px 6px rgba(64, 150, 255, 0.4),
-    inset 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* 添加顶部和底部渐变遮罩 */
-.panel-content::before,
-.panel-content::after {
-  content: '';
-  position: sticky;
-  left: 0;
-  right: 0;
-  height: 20px;
-  pointer-events: none;
-  z-index: 1;
-  flex-shrink: 0;
-}
-
-.panel-content::before {
-  top: 0;
-  background: linear-gradient(180deg, 
-    rgba(255, 255, 255, 0.98) 0%, 
-    rgba(255, 255, 255, 0.6) 40%, 
-    rgba(255, 255, 255, 0.2) 70%, 
-    transparent 100%);
-  margin-bottom: -20px;
-  border-radius: 0 0 12px 12px;
-}
-
-.panel-content::after {
-  bottom: 0;
-  background: linear-gradient(0deg, 
-    rgba(255, 255, 255, 0.98) 0%, 
-    rgba(255, 255, 255, 0.6) 40%, 
-    rgba(255, 255, 255, 0.2) 70%, 
-    transparent 100%);
-  margin-top: -20px;
-  border-radius: 12px 12px 0 0;
 }
 
 .settings-content,
