@@ -1684,14 +1684,27 @@ onUnmounted(() => {
 .control-panel-mobile {
   order: 2;
   width: 100%;
-  height: 55vh;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  height: auto;
+  max-height: none;
+  position: static;
   border-right: none;
   border-top: 1px solid var(--c-border, #eef2f6);
-  border-radius: 30px 30px 0 0;
+  border-radius: 24px 24px 0 0;
+  box-shadow: 0 -6px 16px rgba(0, 0, 0, 0.08);
+  padding-bottom: calc(env(safe-area-inset-bottom, 16px) + 12px);
+}
+
+.control-panel-mobile .panel-content {
+  max-height: none;
+  padding-bottom: 80px;
+}
+
+.control-panel-mobile .panel-footer {
+  position: sticky;
+  bottom: 0;
+  background: var(--c-surface, #ffffff);
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08);
+  border-top: 1px solid var(--c-border, #eef2f6);
 }
 
 @media (min-width: 1024px) {
@@ -2290,9 +2303,9 @@ onUnmounted(() => {
 
 .canvas-area-mobile {
   order: 1;
-  height: calc(100vh - 48px - 55vh - 32px);
-  min-height: 300px;
-  max-height: calc(100vh - 48px - 55vh - 32px);
+  height: auto;
+  min-height: 320px;
+  padding-bottom: 16px;
 }
 
 @media (min-width: 1024px) {
