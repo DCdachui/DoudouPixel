@@ -203,6 +203,12 @@ export async function downloadImage({
     const { N, M } = gridDimensions;
     const downloadCellSize = 30;
     const { showGrid, gridInterval, showCoordinates, gridLineColor, includeStats } = options;
+    const targetDpi = Number(options?.dpi) || 180;
+    const scaleFactor = Math.max(targetDpi / 96, 1);
+    const applyScaleTransform = (context) => {
+      context.setTransform(scaleFactor, 0, 0, scaleFactor, 0, 0);
+      context.imageSmoothingEnabled = false;
+    };
     const axisLabelSize = showCoordinates ? Math.max(30, Math.floor(downloadCellSize)) : 0;
     const statsPadding = 20;
     let statsHeight = 0;
@@ -243,8 +249,8 @@ export async function downloadImage({
     let downloadHeight = titleBarHeight + gridHeight + (axisLabelSize * 2) + statsHeight + extraTopMargin + extraBottomMargin + xiaohongshuAreaHeight;
   
     let downloadCanvas = document.createElement('canvas');
-    downloadCanvas.width = downloadWidth;
-    downloadCanvas.height = downloadHeight;
+    downloadCanvas.width = Math.round(downloadWidth * scaleFactor);
+    downloadCanvas.height = Math.round(downloadHeight * scaleFactor);
     const context = downloadCanvas.getContext('2d');
     if (!context) {
       console.error("下载失败: 无法创建临时 Canvas Context。");
@@ -253,7 +259,7 @@ export async function downloadImage({
     }
     
     let ctx = context;
-    ctx.imageSmoothingEnabled = false;
+    applyScaleTransform(ctx);
     ctx.fillStyle = '#FFFFFF';
     ctx.fillRect(0, 0, downloadWidth, downloadHeight);
     ctx.fillStyle = '#4096FF';
@@ -568,15 +574,15 @@ export async function downloadImage({
       
       if (downloadHeight !== newDownloadHeight) {
         const newCanvas = document.createElement('canvas');
-        newCanvas.width = downloadWidth;
-        newCanvas.height = newDownloadHeight;
+        newCanvas.width = Math.round(downloadWidth * scaleFactor);
+        newCanvas.height = Math.round(newDownloadHeight * scaleFactor);
         const newContext = newCanvas.getContext('2d');
         
         if (newContext) {
           newContext.drawImage(downloadCanvas, 0, 0);
           downloadCanvas = newCanvas;
           ctx = newContext;
-          ctx.imageSmoothingEnabled = false;
+          applyScaleTransform(ctx);
           downloadHeight = newDownloadHeight;
         }
       }

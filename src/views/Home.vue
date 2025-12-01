@@ -552,7 +552,8 @@ const downloadOptions = reactive({
   gridLineColor: '#555555',
   showCoordinates: true,
   includeStats: true,
-  exportCsv: false
+  exportCsv: false,
+  dpi: 180
 });
 
 // 初始化完整色板

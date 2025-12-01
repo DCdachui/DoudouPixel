@@ -42,6 +42,18 @@
         <a-switch v-model:checked="tempOptions.includeStats" />
       </a-form-item>
 
+      <a-form-item label="导出分辨率 (DPI)">
+        <a-radio-group v-model:value="tempOptions.dpi">
+          <a-radio
+            v-for="option in dpiOptions"
+            :key="option.value"
+            :value="option.value"
+          >
+            {{ option.label }}
+          </a-radio>
+        </a-radio-group>
+      </a-form-item>
+
       <a-form-item label="同时导出 CSV">
         <a-switch v-model:checked="tempOptions.exportCsv" />
       </a-form-item>
@@ -64,6 +76,12 @@ export const gridLineColorOptions = [
   { name: '绿色', value: '#008000' },
   { name: '紫色', value: '#800080' },
   { name: '橙色', value: '#FFA500' },
+]
+
+const dpiOptions = [
+  { label: '标准 96 DPI', value: 96 },
+  { label: '高清 150 DPI', value: 150 },
+  { label: '超清 180 DPI', value: 180 }
 ]
 
 export default {
@@ -112,6 +130,7 @@ export default {
       isOpen,
       tempOptions,
       gridLineColorOptions,
+      dpiOptions,
       handleSave,
       handleCancel
     }
